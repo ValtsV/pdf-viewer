@@ -1,3 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.top-bar {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+.btn {
+  background: rgb(64, 160, 224);
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.6rem 0.7rem;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.page-info {
+  margin-left: 1rem;
+}
+
+.error {
+  background: orangered;
+  color: #fff;
+  padding: 1rem;
+}
+
 button i {
   vertical-align: middle;
 }
