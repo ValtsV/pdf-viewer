@@ -1,17 +1,13 @@
 const url = "../docs/pdf-sample.pdf";
 
 let pdfDoc = null,
-  pageNum = 1,
-  pageIsRendering = false,
-  pageNumIsPending = null;
+  pageNum = 1;
 
 const scale = 1.5,
   canvas = document.querySelector("#pdf-render");
 ctxt = canvas.getContext("2d");
 
 const renderPage = (num) => {
-  pageIsRendering = true;
-
   pdfDoc.getPage(num).then((page) => {
     //   set scale
     const viewport = page.getViewport({ scale });
@@ -24,7 +20,25 @@ const renderPage = (num) => {
     };
 
     page.render(renderCtxt);
+
+    document.querySelector("#page-num").textContent = num;
   });
+};
+
+const showPrevPage = () => {
+  if (pageNum < 2) {
+    return;
+  }
+  pageNum--;
+  renderPage(pageNum);
+};
+
+const showNextPage = () => {
+  if (pageNum >= pdfDoc.numPages) {
+    return;
+  }
+  pageNum++;
+  renderPage(pageNum);
 };
 
 //    get doc
@@ -38,3 +52,8 @@ pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
   //   call doc render
   renderPage(pageNum);
 });
+
+//  buttons
+
+document.querySelector("#prev-page").addEventListener("click", showPrevPage);
+document.querySelector("#next-page").addEventListener("click", showNextPage);
