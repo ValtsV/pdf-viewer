@@ -9,8 +9,11 @@ ctxt = canvas.getContext("2d");
 
 const renderPage = (num) => {
   pdfDoc.getPage(num).then((page) => {
-    //   set scale
-
+    // set scale from page width
+    const docViewport = page.getViewport({ scale: 1 });
+    const newScale = window.innerWidth / docViewport.width;
+    scale = newScale;
+    //   set scale to page
     const viewport = page.getViewport({ scale });
     canvas.height = viewport.height;
     canvas.width = viewport.width;
@@ -53,14 +56,6 @@ pdfjsLib
 
     document.querySelector("#page-count").textContent = pdfDoc.numPages;
 
-    pdfDoc.getPage(pageNum).then((page) => {
-      //   set scale
-
-      const viewport = page.getViewport({ scale: 1 });
-      const newScale = window.innerWidth / viewport.width;
-      console.log(newScale);
-      scale = newScale;
-    });
     //   call doc render
     renderPage(pageNum);
   })
